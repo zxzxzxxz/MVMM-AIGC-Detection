@@ -1,0 +1,13 @@
+# Install a matching PyTorch / torchvision pair for your CPU or CUDA setup.
+torch
+torchvision
+numpy
+scipy
+scikit-learn
+Pillow
+regex
+ftfy
+tqdm
+matplotlib
+packaging
+ipython
