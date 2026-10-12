@@ -2,8 +2,6 @@
 
 基于 CLIP 图像特征与变分信息瓶颈（VIB）的 AI 生成图像检测项目，包含多视角评估、边缘化推理、阈值校准、鲁棒性测试及 No-VIB 消融实验。
 
-仓库只保存代码与说明。**数据集、模型权重、实验结果和生成报告均保留在本地，不上传 GitHub。**
-
 ## 1. 安装环境
 
 在项目根目录执行（PowerShell 示例）：
@@ -16,7 +14,7 @@ python -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-建议使用 Python 3.9 或 3.10。根据机器选择配套的 PyTorch / torchvision CPU 或 CUDA 版本；运行时 `--device auto` 会自动选择可用设备。依赖文件不是精确锁定的环境。
+使用 Python 3.9 或 3.10，安装与 CPU / CUDA 环境匹配的 PyTorch 和 torchvision。`--device auto` 自动选择运行设备。
 
 ## 2. 准备数据和权重
 
@@ -35,9 +33,9 @@ models/checkpoints/
 └── progan.pth
 ```
 
-权重需要包含 `model` 状态字典，并与所选模型结构匹配。这些检测权重需单独准备，本仓库没有提供下载地址。首次使用 CLIP 时，程序会下载骨干权重并缓存到用户目录的 `.cache/clip/`。
+检测权重需单独准备，包含 `model` 状态字典，并与模型结构匹配。首次运行时，程序会下载 CLIP 骨干权重到用户目录的 `.cache/clip/`。
 
-`dataset_paths.py` 配置默认的训练集、验证集路径；也可通过评估命令直接传入真实图与生成图目录。路径应指向实际数据位置，本地现有的 `Genlmage/` 目录也可以使用。
+在 `dataset_paths.py` 中填写训练集和验证集路径，或通过命令行指定真实图与生成图目录。
 
 ## 3. 运行评估
 
@@ -96,4 +94,4 @@ requirements.txt              # Python 依赖
 
 ## 来源说明
 
-项目包含 CLIP、PyTorch / torchvision 相关实现及带有原始版权声明的第三方代码，原有声明予以保留。当前仓库未统一声明新的开源许可证，各部分的使用与分发应遵循其原始许可。
+第三方代码的许可见对应源码中的版权声明。
