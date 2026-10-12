@@ -14,8 +14,6 @@ python -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-使用 Python 3.9 或 3.10，安装与 CPU / CUDA 环境匹配的 PyTorch 和 torchvision。`--device auto` 自动选择运行设备。
-
 ## 2. 准备数据和权重
 
 自行准备真实图像、生成图像和检测模型权重。例如：
@@ -32,10 +30,6 @@ models/checkpoints/
 ├── sd_v14.pth
 └── progan.pth
 ```
-
-检测权重需单独准备，包含 `model` 状态字典，并与模型结构匹配。首次运行时，程序会下载 CLIP 骨干权重到用户目录的 `.cache/clip/`。
-
-在 `dataset_paths.py` 中填写训练集和验证集路径，或通过命令行指定真实图与生成图目录。
 
 ## 3. 运行评估
 
@@ -58,8 +52,6 @@ python main.py --arch "CLIP:ViT-L/14" --ckpt "models/checkpoints/sd_v14.pth" --r
 
 默认使用中心裁剪、随机 VIB 采样和 0.5 分类阈值。校准阈值来自目标图像分数的分位数，不使用目标标签，但依赖假图比例的假设；数据加载器会平衡真假图数量。当前 CLIP-VIB 层按 ViT-L/14 的 768 维特征构建，建议使用示例骨干。
 
-**每次运行请使用独立的 `--result_folder`：程序会删除并重建指定的已有结果目录。**
-
 ## 4. 查看结果
 
 结果保存到指定目录，主要包括：
@@ -68,8 +60,6 @@ python main.py --arch "CLIP:ViT-L/14" --ckpt "models/checkpoints/sd_v14.pth" --r
 - `metrics_summary.json`：AP、AUC、真假图准确率、总体准确率、潜变量不确定性和效率统计。
 - `ap.txt` / `acc0.txt`：简要指标。
 - 先验敏感性 CSV：不同假图比例假设下的指标；使用 `--save_scores` 后，额外保存逐样本分数 CSV。
-
-真实图标签为 `0`，生成图标签为 `1`，分数越高越倾向生成图。AP 与准确率以百分比输出，AUC 在主评估结果中为 0–1。
 
 ## 5. 消融实验
 
